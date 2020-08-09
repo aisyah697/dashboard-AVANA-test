@@ -1,13 +1,15 @@
 import React from "react";
-import {Route} from "react-router-dom";
+import { Route, BrowserRouter } from "react-router-dom";
 
 //components
 import Home from "../pages/Home";
 
 const MainRoutes = () => {
-    return (
-        <Route exact path="/" component={Home} />
-    )
-}
+  return (
+    <BrowserRouter>
+      <Route exact path="/" component={Home} />
+    </BrowserRouter>
+  );
+};
 
 export default MainRoutes;
