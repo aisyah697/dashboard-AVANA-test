@@ -13,11 +13,12 @@ class Home extends Component {
   }
 
   render() {
-    console.log("cek props", this.props);
     return (
-      <div>
-        <MenuDrawer {...this.props} />
-      </div>
+      <Fragment>
+        <div style={{ backgroundColor: "rgba(0,0,0,0.75)" }}>
+          <MenuDrawer {...this.props} />
+        </div>
+      </Fragment>
     );
   }
 }

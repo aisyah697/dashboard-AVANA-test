@@ -1,96 +1,90 @@
 import React from "react";
+
+//material-ui
 import { makeStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
-import Toolbar from "@material-ui/core/Toolbar";
+import Accordion from "@material-ui/core/Accordion";
+import AccordionSummary from "@material-ui/core/AccordionSummary";
+import AccordionDetails from "@material-ui/core/AccordionDetails";
 import Typography from "@material-ui/core/Typography";
-import axios from "axios";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import Avatar from "@material-ui/core/Avatar";
 
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemText from "@material-ui/core/ListItemText";
-import Collapse from "@material-ui/core/Collapse";
-import ExpandLess from "@material-ui/icons/ExpandLess";
-import ExpandMore from "@material-ui/icons/ExpandMore";
-
-const drawerWidth = 240;
+const drawerWidth = 280;
 
 const useStyles = makeStyles((theme) => ({
-  appBar: {
-    zIndex: theme.zIndex.drawer + 1,
-  },
   drawer: {
     width: drawerWidth,
-    flexShrink: 0,
+    flexShrink: 1,
+    minHeight: "100vh",
   },
   drawerPaper: {
     width: drawerWidth,
     zIndex: 0,
-    top: theme.spacing(2),
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
   },
   drawerContainer: {
     overflow: "auto",
-    paddingBottom: theme.spacing(15),
   },
   content: {
     flexGrow: 1,
-    padding: theme.spacing(3),
   },
-  title: {
+  brand: {
+    marginTop: theme.spacing(4),
     paddingRight: theme.spacing(2),
-    paddingLeft: "18px",
+    paddingLeft: theme.spacing(2),
+    display: "flex",
+    justifyContent: "center",
     color: theme.palette.secondary.secondary,
   },
-  module: {
-    textTransform: "uppercase",
-    fontSize: `calc(1em + 0.5vw)`,
-    color: theme.palette.secondary.secondary,
+  logo: {
+    maxHeight: "1.75rem",
+    textAlign: "center",
   },
-  subject: {
-    fontSize: `calc(0.8em + 0.5vw)`,
+  userProfile: {
+    marginTop: theme.spacing(4),
+    marginBottom: theme.spacing(3),
+    paddingRight: theme.spacing(2),
+    paddingLeft: theme.spacing(2),
+  },
+  avatar: {
+    display: "flex",
+    justifyContent: "center",
+  },
+  medium: {
+    width: theme.spacing(7),
+    height: theme.spacing(7),
+  },
+  username: {
+    textAlign: "center",
+    marginTop: theme.spacing(2),
     fontWeight: "bold",
+    color: "#ffffff",
   },
-  nested: {
-    paddingLeft: theme.spacing(4),
+  menu: {
+    textTransform: "capitalize",
+    color: "#ffffff",
   },
-  heading: {
-    color: theme.palette.secondary.secondary,
+  nestedMenu: {
+    color: "rgb(156, 164, 171)",
+    textTransform: "capitalize",
   },
-  detail: {
-    padding: theme.spacing(0, 3, 1, 3),
-    color: theme.palette.secondary.secondary,
+  button: {
+    color: "rgb(156, 164, 171)",
+  },
+  accordion: {
     cursor: "pointer",
-  },
-  detailLock: {
-    padding: theme.spacing(0, 3, 1, 3),
-    color: "#7E7E7E",
-  },
-  lastDetail: {
-    padding: theme.spacing(2, 3, 1, 3),
-    color: theme.palette.secondary.secondary,
-  },
-  lastDetailLock: {
-    padding: theme.spacing(2, 3, 1, 3),
-    color: "#7E7E7E",
-  },
-  allText: {
-    color: theme.palette.secondary.secondary,
-    fontSize: `calc(0.6em + 0.4vw)`,
-    fontFamily: "Muli, sans-serif",
+    backgroundColor: "rgba(0, 0, 0, 0)",
+    boxShadow: "none",
+    paddingLeft: theme.spacing(3),
+    paddingRight: theme.spacing(3),
   },
 }));
 
 const MenuDrawer = (props) => {
   const classes = useStyles();
 
-  const [openProduct, setOpenProduct] = React.useState(false);
-  const handleClickSetting = () => {
-    setOpenSetting(!openSetting);
-  };
-
-  const [openSetting, setOpenSetting] = React.useState(false);
-  const handleClickProduct = () => {
-    setOpenProduct(!openProduct);
-  };
+  const listMenu = props.dataMenu.listMenu;
 
   return (
     <Drawer
@@ -101,45 +95,71 @@ const MenuDrawer = (props) => {
       }}
     >
       <div className={classes.drawerContainer}>
-        <div className={classes.title}>
-          <h1 className={classes.module}>AVANA</h1>
+        <div className={classes.brand}>
+          <img
+            src={require("../assets/logo.png")}
+            alt="logo"
+            className={classes.logo}
+          />
         </div>
-        <List
-          component="nav"
-          aria-labelledby="nested-list-subheader"
-          className={classes.root}
-        >
-          <ListItem button>
-            <ListItemText primary="Dashboard" />
-          </ListItem>
-          <ListItem button>
-            <ListItemText primary="My Orders" />
-          </ListItem>
-
-          <ListItem button onClick={handleClickProduct}>
-            <ListItemText primary="My Product" />
-            {openProduct ? <ExpandLess /> : <ExpandMore />}
-          </ListItem>
-          <Collapse in={openProduct} timeout="auto" unmountOnExit>
-            <List component="div" disablePadding>
-              <ListItem button className={classes.nested}>
-                <ListItemText primary="Product" />
-              </ListItem>
-            </List>
-          </Collapse>
-
-          <ListItem button onClick={handleClickSetting}>
-            <ListItemText primary="Settings" />
-            {openSetting ? <ExpandLess /> : <ExpandMore />}
-          </ListItem>
-          <Collapse in={openSetting} timeout="auto" unmountOnExit>
-            <List component="div" disablePadding>
-              <ListItem button className={classes.nested}>
-                <ListItemText primary="Invoicing" />
-              </ListItem>
-            </List>
-          </Collapse>
-        </List>
+        <div className={classes.userProfile}>
+          <div className={classes.avatar}>
+            <Avatar className={classes.medium}>AB</Avatar>
+          </div>
+          <div className={classes.username}>
+            <span>Avriza Bramantyo</span>
+          </div>
+        </div>
+        <div className={classes.content}>
+          {listMenu ? (
+            <div>
+              {listMenu.map((value, index) => (
+                <div key={index}>
+                  {value.isShowed === true && value.isAllowed === true ? (
+                    <div>
+                      {value.childs ? (
+                        <Accordion className={classes.accordion}>
+                          <AccordionSummary
+                            expandIcon={
+                              <ExpandMoreIcon className={classes.button} />
+                            }
+                            aria-controls="panel1a-content"
+                            id="panel1a-header"
+                          >
+                            <Typography className={classes.menu}>
+                              {value.id}
+                            </Typography>
+                          </AccordionSummary>
+                          <div>
+                            {value.childs.map((item, index) => (
+                              <div key={index}>
+                                {item.isShowed === true ? (
+                                  <AccordionDetails>
+                                    <Typography className={classes.nestedMenu}>
+                                      {item.id}
+                                    </Typography>
+                                  </AccordionDetails>
+                                ) : null}
+                              </div>
+                            ))}
+                          </div>
+                        </Accordion>
+                      ) : (
+                        <Accordion className={classes.accordion}>
+                          <AccordionDetails>
+                            <Typography className={classes.menu}>
+                              {value.id}
+                            </Typography>
+                          </AccordionDetails>
+                        </Accordion>
+                      )}
+                    </div>
+                  ) : null}
+                </div>
+              ))}
+            </div>
+          ) : null}
+        </div>
       </div>
     </Drawer>
   );

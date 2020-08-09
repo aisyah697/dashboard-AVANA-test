@@ -4,8 +4,7 @@ export default function menuReducer(menuState = data, action) {
   switch (action.type) {
     case "GET_MENU":
       return {
-        ...menuState,
-        menuData: action.payload,
+        listMenu: action.payload,
       };
     default:
       return menuState;
