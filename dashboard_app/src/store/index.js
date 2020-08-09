@@ -1,9 +1,11 @@
 import redux, { createStore, applyMiddleware, combineReducers } from "redux";
 import thunk from "redux-thunk";
 
+//reducer
+import menuReducer from "./reducers/menuReducer";
+
 const rootReducer = combineReducers({
-  user: userReducer,
-  article: articleReducer,
+  menu: menuReducer,
 });
 
 const store = createStore(rootReducer, applyMiddleware(thunk));
